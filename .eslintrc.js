@@ -1,7 +1,3 @@
-/* --ignore-pattern */
-
-'use strict';
-
 module.exports = {
     'env': {'es6': true, 'node': true, 'mongo': true},
     'extends': 'eslint:recommended',
