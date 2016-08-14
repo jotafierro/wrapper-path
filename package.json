@@ -1,6 +1,6 @@
 {
   "name": "wrapper-path",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "wrapper to path module, to simple include and get",
   "main": "index.js",
   "author": "Jonathan Fierro Sandoval <jofierro@live.com>",
@@ -11,7 +11,11 @@
   "bugs": {
     "url": "https://github.com/jofierro/wrapper-path/issues"
   },
-  "license": "ISC",
+  "license": "MIT",
+  "keywords": [
+    "path",
+    "wrapper"
+  ],
   "dependencies": {
     "lodash": "^4.14.2"
   }
