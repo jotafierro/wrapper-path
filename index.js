@@ -5,17 +5,28 @@ var _ = {
         isString: require('lodash').isString,
         isBoolean: require('lodash').isBoolean,
         isPlainObject: require('lodash').isPlainObject,
+        isNull: require('lodash').isNull,
     },
+    pathResolve = require('path').resolve,
     functions = (pathRoot) => {
+        let get = (path, file) => {
+            let pathComplete = '';
+            if ((_.isUndefined(path)) || (!_.isUndefined(path) && !_.isString(path))) return null;
+            if (path.slice(-1) != '/') path += '/';
+            if (path.substring(0, pathRoot.length) != pathRoot) pathComplete += pathRoot;
+            pathComplete += path;
+            if (!_.isUndefined(file) && !_.isString(file)) return null;
+            if (!_.isUndefined(file)) pathComplete += file;
+            return pathComplete;
+        };
+        pathRoot = pathResolve(pathRoot);
         return {
             include: (path, file) => {
-                let pathComplete = pathRoot;
-                if ((_.isUndefined(path)) || (!_.isUndefined(path) && !_.isString(path))) return null;
-                pathComplete += path + '/';
-                if (!_.isUndefined(file) && !_.isString(file)) return null;
-                if (!_.isUndefined(file)) pathComplete += file;
+                let pathComplete = get(path, file);
+                if (_.isNull(pathComplete)) return;
                 return require(pathComplete);
             },
+            get: get,
         };
     };
 
