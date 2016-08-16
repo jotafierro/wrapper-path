@@ -3,6 +3,9 @@
   "version": "0.1.7",
   "description": "wrapper to path module, to simple include and get",
   "main": "index.js",
+  "scripts": {
+    "test": "make test"
+  },
   "author": "Jonathan Fierro Sandoval <jofierro@live.com>",
   "repository": {
     "type": "git",
@@ -18,5 +21,9 @@
   ],
   "dependencies": {
     "lodash": "^4.14.2"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.0.2"
   }
 }
