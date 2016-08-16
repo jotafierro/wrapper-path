@@ -4,12 +4,12 @@
 
 > Este proyecto nace de la necesidad de poder hacer un "require" con un path mas comprensible.
 
-Es un paquete, para poder realizar require de manera más práctica, sin tener que pasar agregar . o ../ a las rutas de los modulos o paquetes que se desean incluir.
+Es un paquete, para poder realizar require de manera más práctica, sin tener que pasar agregar . o ../ a las rutas de los módulos o paquetes que se desean incluir.
 
-Esto tomando una ruta base '/' como se hace en los sistemas operatidos, esta puede ser la el path al directorio del proyecto o a cualquier otro punto dentro del sistema desde donde se desee.
+Esto tomando una ruta base '/' como se hace en los sistemas operativos, esta puede ser la el path al directorio del proyecto o a cualquier otro punto dentro del sistema desde donde se desee.
 
 
-Este paquete agrega una función a "global" de node.js, por defecto "$Path", que incluye la funcionalidad de cargar un archivo a traves de una ruta y otra funcionalidad de obtener la ruta segun los parametros pasados, si es que esta existe.
+Este paquete agrega una función a "global" de node.js, por defecto "$Path", que incluye la funcionalidad de cargar un archivo a través de una ruta y otra funcionalidad de obtener la ruta según los parámetros pasados, si es que esta existe.
 
 ## Uso
 
@@ -59,7 +59,7 @@ crea el objeto "$Path" asociado a "global" de node, o lo retorna a una variable.
 
 #### Ejemplo de uso
 
-En node.js para cargar codigo de la "carpeta1" en el "script.js" de la "carpeta2", se hace lo siguiente:
+En node.js para cargar código de la "carpeta1" en el "script.js" de la "carpeta2", se hace lo siguiente:
 
 ~~~
 var modulo1 = require('../carpeta1/modulo1.js');
