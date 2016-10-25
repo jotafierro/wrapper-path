@@ -1,2 +1,9 @@
+# Mac
 .DS_Store
+
+# nodejs
 node_modules
+npm-debug.log
+
+# git
+*.orig
