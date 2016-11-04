@@ -4,9 +4,9 @@ const expect = require('chai').expect;
 
 describe('$Path', () => {
     let wrapperPath = require('../index.js');
-    wrapperPath.init({pathRoot: __dirname});
+    wrapperPath.init({pathRoot: __dirname, inGlobal: true});
     it('get', () => {
-        expect($Path.get(__dirname)).to.equal(__dirname + '/');
+        expect($Path.get('/../node_modules')).to.equal(__dirname + '/');
     });
     it('include', () => {
         expect($Path.include('/folder1')).to.have.property('keyIndex').to.equal('valueIndex');

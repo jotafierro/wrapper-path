@@ -1,10 +1,11 @@
 {
   "name": "wrapper-path",
-  "version": "0.1.9",
+  "version": "1.0.1",
   "description": "wrapper to path module, to simple include and get",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha --reporter spec"
+    "test": "mocha",
+    "test-spec": "mocha --reporter spec"
   },
   "author": "Jonathan Fierro Sandoval <jofierro@live.com>",
   "repository": {
@@ -20,10 +21,10 @@
     "wrapper"
   ],
   "dependencies": {
-    "lodash": "^4.14.2"
+    "lodash": "^4.16.6"
   },
   "devDependencies": {
     "chai": "^3.5.0",
-    "mocha": "^3.0.2"
+    "mocha": "^3.1.2"
   }
 }

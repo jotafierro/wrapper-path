@@ -9,7 +9,7 @@ Es un paquete, para poder realizar require de manera más práctica, sin tener q
 Esto tomando una ruta base '/' como se hace en los sistemas operativos, esta puede ser la el path al directorio del proyecto o a cualquier otro punto dentro del sistema desde donde se desee.
 
 
-Este paquete agrega una función a "global" de node.js, por defecto "$Path", que incluye la funcionalidad de cargar un archivo a través de una ruta y otra funcionalidad de obtener la ruta según los parámetros pasados, si es que esta existe.
+>Este paquete agrega una función a "global" de node.js si se pasa la opcion inGlobal: true (por defecto "$Path"), que incluye la funcionalidad de cargar un archivo a través de una ruta y otra funcionalidad de obtener la ruta según los parámetros pasados, si es que esta existe.
 
 ## Uso
 
@@ -53,8 +53,8 @@ wrapperPath.init({pathRoot: '/home/personal/proyecto', inGlobal: true, prefix: '
 crea el objeto "$Path" asociado a "global" de node, o lo retorna a una variable. Las opciones son las siguientes:
 
 * **pathRoot:** ruta que se quiere como root '/'
-* **inGlobal:** este agrega a "global" la función 'Path' si es seteado como true, pero si es false, retorna un objeto con las funcionalidades. (por defecto es true)
-* **prefix:** este es el que va antes de 'Path' en el caso de definir (por defecto $)
+* **inGlobal:** este agrega a "global" la función 'Path' si es seteado como true, pero si es false, retorna un objeto con las funcionalidades. (por defecto es false)
+* **prefix:** este es el que va antes de 'Path' en el caso de definir inGlobal: true (por defecto $)
 
 
 #### Ejemplo de uso
