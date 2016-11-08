@@ -25,7 +25,7 @@ npm i --save wrapper-path
 
 Pensemos en la siguiente estructura de archivos:
 
-~~~~
+~~~
 /home
     /personal
         /proyecto
