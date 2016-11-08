@@ -38,7 +38,7 @@ module.exports.init = (opts) => {
     if (!_.isString(opts.pathRoot)) return;
     if (!_.isUndefined(opts.prefix) && !_.isString(opts.prefix)) return;
     if ((_.isUndefined(opts.inGlobal)) || (!_.isUndefined(opts.inGlobal) && !_.isBoolean(opts.inGlobal)))
-        opts.inGlobal = true;
+        opts.inGlobal = false;
     if (_.isUndefined(opts.prefix)) opts.prefix = '$';
 
     if (opts.inGlobal) global[opts.prefix + 'Path'] = functions(opts.pathRoot);
