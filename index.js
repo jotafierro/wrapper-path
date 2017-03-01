@@ -8,29 +8,28 @@ var _ = {
         isNull: require('lodash').isNull,
     },
     pathResolve = require('path').resolve,
-    functions = (pathRoot) => {
-        let get = (path, file) => {
+    generate = (pathRoot) => {
+        pathRoot = pathResolve(pathRoot);
+        let functions = {};
+        functions.get = (path, file) => {
             let pathComplete = '';
             if ((_.isUndefined(path)) || (!_.isUndefined(path) && !_.isString(path))) return null;
-            if (path.substring(0, pathRoot.length) != pathRoot) pathComplete += pathRoot;
+            if (path.substring(0, pathRoot.length) !== pathRoot) pathComplete += pathRoot;
             pathComplete += path;
-            if (pathComplete.slice(-1) != '/') {
+            if (pathComplete.slice(-1) !== '/') {
                 pathComplete = pathResolve(pathComplete);
-                pathComplete += '/';
+                if (!_.isUndefined(file)) pathComplete += '/';
             }
-            if (!_.isUndefined(file) && !_.isString(file)) return null;
             if (!_.isUndefined(file)) pathComplete += file;
             return pathComplete;
         };
-        pathRoot = pathResolve(pathRoot);
-        return {
-            include: (path, file) => {
-                let pathComplete = get(path, file);
-                if (_.isNull(pathComplete)) return;
-                return require(pathComplete);
-            },
-            get: get,
+        functions.include = (path, file) => {
+            let pathComplete = functions.get(path, file);
+            if (_.isNull(pathComplete)) return;
+            return require(pathComplete);
         };
+        functions.require = functions.include;
+        return functions;
     };
 
 module.exports.init = (opts) => {
@@ -41,6 +40,6 @@ module.exports.init = (opts) => {
         opts.inGlobal = false;
     if (_.isUndefined(opts.prefix)) opts.prefix = '$';
 
-    if (opts.inGlobal) global[opts.prefix + 'Path'] = functions(opts.pathRoot);
-    else return functions(opts.pathRoot);
+    if (opts.inGlobal) global[opts.prefix + 'Path'] = generate(opts.pathRoot);
+    else return generate(opts.pathRoot);
 };

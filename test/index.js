@@ -3,14 +3,24 @@
 const expect = require('chai').expect;
 
 describe('$Path', () => {
-    let wrapperPath = require('../index.js');
-    wrapperPath.init({pathRoot: __dirname, inGlobal: true});
+    let wrapperPath = require('../index.js'),
+        path = wrapperPath.init({pathRoot: __dirname});
     it('get', () => {
-        expect($Path.get('/../node_modules')).to.equal(__dirname + '/');
+        expect(path.get('/')).to.equal(`${__dirname}/`);
+        expect(path.get('/folder1/index.js')).to.equal(`${__dirname}/folder1/index.js`);
+        // expect(path.get('/../node_modules')).to.equal(`${__dirname}/`);
     });
     it('include', () => {
-        expect($Path.include('/folder1')).to.have.property('keyIndex').to.equal('valueIndex');
-        expect($Path.include('/folder1', 'index.js')).to.have.property('keyIndex').to.equal('valueIndex');
-        expect($Path.include('/folder1', 'script.js')).to.have.property('keyScript').to.equal('valueScript');
+        expect(path.include('/folder1')).to.have.property('keyIndex').to.equal('valueIndex');
+        expect(path.include('/folder1', 'index.js')).to.have.property('keyIndex').to.equal('valueIndex');
+        expect(path.include('/folder1/index.js')).to.have.property('keyIndex').to.equal('valueIndex');
+        expect(path.include('/folder1', 'script.js')).to.have.property('keyScript').to.equal('valueScript');
+        expect(path.include('/folder1/script.js')).to.have.property('keyScript').to.equal('valueScript');
+
+        expect(path.require('/folder1')).to.have.property('keyIndex').to.equal('valueIndex');
+        expect(path.require('/folder1', 'index.js')).to.have.property('keyIndex').to.equal('valueIndex');
+        expect(path.require('/folder1/index.js')).to.have.property('keyIndex').to.equal('valueIndex');
+        expect(path.require('/folder1', 'script.js')).to.have.property('keyScript').to.equal('valueScript');
+        expect(path.require('/folder1/script.js')).to.have.property('keyScript').to.equal('valueScript');
     });
 });
