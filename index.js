@@ -7,6 +7,7 @@ var _ = {
         isPlainObject: require('lodash').isPlainObject,
         isNull: require('lodash').isNull,
     },
+    statSync = require('fs').statSync,
     pathResolve = require('path').resolve,
     generate = (pathRoot) => {
         pathRoot = pathResolve(pathRoot);
@@ -19,6 +20,10 @@ var _ = {
             if (pathComplete.slice(-1) !== '/') {
                 pathComplete = pathResolve(pathComplete);
                 if (!_.isUndefined(file)) pathComplete += '/';
+                else {
+                    let stat = statSync(pathComplete);
+                    if (stat.isDirectory()) pathComplete += '/';
+                }
             }
             if (!_.isUndefined(file)) pathComplete += file;
             return pathComplete;
