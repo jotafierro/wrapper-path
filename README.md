@@ -4,21 +4,19 @@
 
 > Este proyecto nace de la necesidad de poder hacer un "require" con una "ruta" mas comprensible.
 
-Es un paquete, para poder realizar require de manera más práctica, sin tener que agregar . o ../ a las rutas de los módulos o paquetes que se desean incluir y que pueda hacer desde cualquier lugar del proyecto de la misma manera.
+Es un paquete, para poder realizar **require** de manera más práctica, sin tener que agregar **.** o **../** a las rutas de los módulos o paquetes que se desean incluir y que pueda hacer desde cualquier lugar del proyecto de la misma manera.
 
 Tomando una ruta base '/' como se hace en los sistemas operativos. Esta puede ser la ruta al directorio del proyecto o a cualquier otro punto dentro del sistema desde donde se desee.
-
-> Este paquete agrega una retorna las funcionalidades para incluir un archivo o modulo, si es que esta existe.
 
 ## Uso
 
 ### Instalación
 
-Instalar  utilizando npm:
+Instalar utilizando npm:
 
-~~~
-npm install wrapper-path
-npm i --save wrapper-path // agregar directamente al package.json
+~~~bash
+yarn add wrapper-path
+# npm i --save wrapper-path 
 ~~~
 
 ### Configuración
@@ -40,61 +38,129 @@ Pensemos en la siguiente estructura de archivos:
                 script.js
 ~~~
 
-en app.js para iniciar "wrapper-path" (existen 2 formas):
+### Path
 
-~~~
-var path = require('wrapper-path').init({pathRoot: '/home/personal/proyecto'});
-~~~
+##### constructor
 
-## .init(options)
+Este metodo es el que se llama cuando se realiza el siguiente codigo:
 
-crea el objeto "$Path" asociado a "global" de node, o lo retorna a una variable. Las opciones son las siguientes:
+```javascript
+const Path = require('wrapper-path');
+let path = new Path(param);
+```
 
-* **pathRoot:** ruta que se quiere como root '/'
-* **inGlobal:** este agrega a "global" la función 'Path' si es seteado como true. (por defecto es false)
-* **prefix:** este se agrega antes de 'Path' en el caso de definir inGlobal: true (por defecto $: global.$Path)
+**Argumentos**:
 
-#### Ejemplo de uso
+- param (String) **required**: ruta que queremos tener como base de nuestro proyecto, 
 
-En node.js para cargar código de la "carpeta1" en el "script.js" de la "carpeta2", se hace lo siguiente:
+**Retorna**:
 
-~~~
-var modulo1 = require('../carpeta1/modulo1.js');
-~~~
+\(*Path*\): Retorna la instancia de la clase **Path**.
 
-Pero el objetivo de este paquete, es poder hacer lo mismo desde cualquier lugar del proyecto:
+#### get
 
-~~~
-var modulo1 = path.require('/carpeta1/modulo1.js');
-var modulo1 = path.require('/carpeta1', 'modulo1.js');
-~~~
+Este metodo permite obtener la ruta completa a el archivo o directorio que solicitemos por parametro. 
 
-##### Otros ejemplo de uso:
+```javascript
+const Path = require('wrapper-path');
+let path = new Path('/home/personal/proyecto');
 
-cargar el "script.js" de la "carpeta2" en el "script.js" de la "modulo2"
+path.get('/app.js'); // /home/personal/proyecto/app.js
+```
 
-~~~
-// sin wrapper-path
-var script = require('../../carpeta2/script.js');
+**Argumentos**:
 
-// con wrapper-path
-var script = path.require('/carpeta2/script.js');
-var script = path.require('/carpeta2', 'script.js');
-~~~
+- param (String) **required**: ruta que queremos obtener.
 
-cargar el "index.js" de la carpeta "modulo2" en "index.js" de la carpeta "carpeta1"
+**Retorna**:
 
-~~~
-// sin wrapper-path
-var modulo2 = require('./modulo2'); // @nota: node.js por defecto en una carpeta carga el archivo index
-var modulo2 = require('./modulo/index.js');
+\(*String*\): retorna la ruta completa.
 
-// con wrapper-path
-var modulo2 = path.require('/carpeta1/modulo2');
-var modulo2 = path.require('/carpeta1/modulo2/index.js');
-var modulo2 = path.require('/carpeta1/modulo2', 'index.js');
-~~~
+#### require
 
-# Tareas
+Este metodo permite hacer el **require** como si fuera nativo pero tomando la ruta base con la cual instanciamos nuestro objeto path. 
 
-* agregar clean/remove folder
+```javascript
+const Path = require('wrapper-path');
+let path = new Path('/home/personal/proyecto');
+let app = path.require('/app.js');
+let carpeta1 = path.require('/carpeta1');
+```
+
+**Argumentos**:
+
+- param (String) **required**: ruta que queremos hacer require.
+
+**Retorna**:
+
+\(*File/Folder*\): retorna la carga del archivo o carpeta.
+
+#### recursive(files,folders)
+
+Esta funcionalidad **recursive**, es para obtener un listado recursivamente de todos los archivos o carpetas de un directorio en especifico.
+
+```javascript
+const Path = require('wrapper-path');
+let path = new Path('/home/personal/proyecto');
+let files = path.recursive.files(param, opts);
+let folders = path.recursive.folders(param, opts);
+```
+
+**Argumentos**:
+
+- param (String) **required**: ruta de la carpeta que queremos obtener los archivos o carpetas.
+- opts (Object):
+    - match \(*RegExp*\): expresión regular para determinar que rutas conservar
+    - exclude \(*RegExp*\): expresión regular para determinar que rutas excluir del resultado
+
+**Retorna**:
+
+\(*Array*\): retorna un arreglo de con las rutas de los archivos o carpetas.
+
+#### remove(file,files,folder,folders)
+
+Esta funcionalidad **remove**, es para borrar un archivo, archivos de una carpeta, una carpeta, o las carpetas de una carpeta.
+
+```javascript
+const Path = require('wrapper-path');
+let path = new Path('/home/personal/proyecto');
+path.remove.file(param);
+path.remove.files(param, opts);
+path.recursive.folder(param);
+path.recursive.folders(param, opts);
+```
+
+**Argumentos**:
+
+- param (String) **required**: ruta de la carpeta o archivo que queremos eliminar.
+- opts (Object):
+    - match \(*RegExp*\): expresión regular para determinar que rutas conservar
+    - exclude \(*RegExp*\): expresión regular para determinar que rutas excluir del resultado
+
+**Retorna**:
+
+\(*Array*\): retorna un arreglo de con las rutas de los archivos o carpetas.
+
+## Pruebas funcionales (Unit Testing)
+
+Se llebaron a cabo 12 pruebas funcionales las cuales evaluan todos los casos de exito y fallo de cada una de las funcionalidades antes nombradas, para ver el resultado:
+
+```bash
+$ yarn test-spec # yarn test
+```
+
+## Pruebas de rendimiento (benchmark)
+
+Con el objetivo de que sea optimo el código se realizaron 2 pruebas de rendimiento, de las cuales se determino que:
+
+- utilizar ***startsWith** es mucho mas optimo que hacer un **RegExp**, cuando uno quiere validar si una cadena contiene un texto al inicio. Para correr la prueba:
+
+    ```bash
+    $ yarn benchmark benchmarck/regex-startsWith.js
+    ```
+
+- Utilizar **slice** o **substr** es muy similar en rendimiento. Para correr la prueba:
+
+    ```bash
+    $ yarn benchmark benchmarck/slice-substr.js
+    ```
