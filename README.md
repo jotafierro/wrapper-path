@@ -16,7 +16,7 @@ Instalar utilizando npm:
 
 ~~~bash
 yarn add wrapper-path
-# npm i --save wrapper-path 
+# npm i --save wrapper-path
 ~~~
 
 ### Configuración
@@ -51,15 +51,15 @@ let path = new Path(param);
 
 **Argumentos**:
 
-- param (String) **required**: ruta que queremos tener como base de nuestro proyecto, 
+- param (String) **required**: ruta que queremos tener como base de nuestro proyecto
 
 **Retorna**:
 
-\(*Path*\): Retorna la instancia de la clase **Path**.
+\(*Path*\): Retorna la instancia de la clase **Path**
 
 #### get
 
-Este metodo permite obtener la ruta completa a el archivo o directorio que solicitemos por parametro. 
+Este metodo permite obtener la ruta completa a el archivo o directorio que solicitemos por parametro.
 
 ```javascript
 const Path = require('wrapper-path');
@@ -78,7 +78,7 @@ path.get('/app.js'); // /home/personal/proyecto/app.js
 
 #### require
 
-Este metodo permite hacer el **require** como si fuera nativo pero tomando la ruta base con la cual instanciamos nuestro objeto path. 
+Este metodo permite hacer el **require** como si fuera nativo pero tomando la ruta base con la cual instanciamos nuestro objeto path.
 
 ```javascript
 const Path = require('wrapper-path');
@@ -112,6 +112,8 @@ let folders = path.recursive.folders(param, opts);
 - opts (Object):
     - match \(*RegExp*\): expresión regular para determinar que rutas conservar
     - exclude \(*RegExp*\): expresión regular para determinar que rutas excluir del resultado
+
+> NOTA: tener en consideracion el uso de la bandera de busqueda **g** en las [RegExp][RegExp], ya que a puede entregar resultados erroneos, mas información [aquí][RexExp-g-wrong-results]
 
 **Retorna**:
 
@@ -164,3 +166,6 @@ Con el objetivo de que sea optimo el código se realizaron 2 pruebas de rendimie
     ```bash
     $ yarn benchmark benchmarck/slice-substr.js
     ```
+
+[RegExp]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp
+[RexExp-g-wrong-results]: https://stackoverflow.com/questions/1520800/why-does-a-regexp-with-global-flag-give-wrong-results

@@ -4,6 +4,10 @@ Todos los cambios importantes son escritos aquí. El Formato esta basado en [Kee
 
 ## [Unreleased]
 
+## [2.0.1] - 2017-11-17
+### Changed
+- Se mejora el rendimiento de las funcionalidades, utilizando **for** en vez de **forEach**
+
 ## [2.0.0] - 2017-09-25
 ### Changed
 - Se crea una clase en vez de funcionalidades separadas

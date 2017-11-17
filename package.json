@@ -1,7 +1,7 @@
 {
   "name": "wrapper-path",
-  "version": "2.0.0",
-  "description": "wrapper to path module, to simple include and get",
+  "version": "2.0.1",
+  "description": "wrapper to path module, to simple require, get and others",
   "main": "Path.js",
   "scripts": {
     "test": "mocha test/index.js",
