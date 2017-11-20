@@ -57,22 +57,28 @@ class Path {
             files: function recursiveFiles(dir, opts, filelist) {
                 dir = self.get(dir);
                 filelist = filelist || [];
-                self._getFiles(dir).forEach((file) => {
+                let files = self._getFiles(dir);
+                for (let i = files.length - 1; i >= 0; i--) {
+                    let file = files[i];
                     if (self._isDirectory(`${dir}${file}`))
-                        return recursiveFiles(`${dir}${file}`, opts, filelist);
-                    let flag = true,
-                        {match, exclude} = opts || {};
-                    flag &= (match) ? match.test(`${dir}${file}`) : flag;
-                    flag &= (exclude) ? !exclude.test(`${dir}${file}`) : flag;
-                    if (flag)
-                        filelist.push(`${dir}${file}`);
-                });
+                        recursiveFiles(`${dir}${file}`, opts, filelist);
+                    else {
+                        let flag = true,
+                            {match, exclude} = opts || {};
+                        flag &= (match) ? match.test(`${dir}${file}`) : flag;
+                        flag &= (exclude) ? !exclude.test(`${dir}${file}`) : flag;
+                        if (flag)
+                            filelist.push(`${dir}${file}`);
+                    }
+                }
                 return filelist;
             },
             folders: function recursiveFolders(dir, opts, folderlist) {
                 dir = self.get(dir);
                 folderlist = folderlist || [];
-                self._getFiles(dir).forEach((file) => {
+                let files = self._getFiles(dir);
+                for (let i = files.length - 1; i >= 0; i--) {
+                    let file = files[i];
                     if (self._isDirectory(`${dir}${file}`)) {
                         let flag = true,
                             {match, exclude} = opts || {};
@@ -82,7 +88,7 @@ class Path {
                             folderlist.push(`${dir}${file}`);
                         return recursiveFolders(`${dir}${file}`, opts, folderlist);
                     }
-                });
+                }
                 return folderlist;
             },
         };
@@ -97,12 +103,16 @@ class Path {
                     fs.rmdirSync(self.get(dir));
                 } catch (e) {
                     if (/ENOTEMPTY/g.test(e)) {
-                        self.recursive.files(dir).forEach(
-                            (file) => fs.unlinkSync(self.get(file))
-                        );
-                        self.recursive.folders(dir).forEach(
-                            (folder) => fs.rmdirSync(self.get(folder))
-                        );
+                        let files = self.recursive.files(dir);
+                        for (let i = files.length - 1; i >= 0; i--) {
+                            let file = files[i];
+                            fs.unlinkSync(self.get(file));
+                        }
+                        let folders = self.recursive.folders(dir);
+                        for (let i = folders.length - 1; i >= 0; i--) {
+                            let folder = folders[i];
+                            fs.rmdirSync(self.get(folder));
+                        }
                         fs.rmdirSync(self.get(dir));
                     } else throw e;
                 }

@@ -8,5 +8,6 @@ module.exports = {
         indent: ['error', 4], 'linebreak-style': ['error', 'unix'],
         quotes: ['error', 'single'], semi: ['error', 'always'],
         'comma-dangle': ['error', 'always-multiline'],
+        'no-var': ['error'],
     },
 };
