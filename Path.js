@@ -61,13 +61,15 @@ class Path {
                 for (let i = files.length - 1; i >= 0; i--) {
                     let file = files[i];
                     if (self._isDirectory(`${dir}${file}`))
-                        return recursiveFiles(`${dir}${file}`, opts, filelist);
-                    let flag = true,
-                        {match, exclude} = opts || {};
-                    flag &= (match) ? match.test(`${dir}${file}`) : flag;
-                    flag &= (exclude) ? !exclude.test(`${dir}${file}`) : flag;
-                    if (flag)
-                        filelist.push(`${dir}${file}`);
+                        recursiveFiles(`${dir}${file}`, opts, filelist);
+                    else {
+                        let flag = true,
+                            {match, exclude} = opts || {};
+                        flag &= (match) ? match.test(`${dir}${file}`) : flag;
+                        flag &= (exclude) ? !exclude.test(`${dir}${file}`) : flag;
+                        if (flag)
+                            filelist.push(`${dir}${file}`);
+                    }
                 }
                 return filelist;
             },
