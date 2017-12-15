@@ -71,9 +71,10 @@ describe('Path', () => {
     });
     it('success: recursive.files', () => {
         expect(path.recursive.files('/', {match: /.+test\/index.js/g})).to.be.length(1);
-        expect(path.recursive.files('/', {exclude: /.+test\/index.js/g})).to.be.length(3);
+        expect(path.recursive.files('/', {exclude: /.+test\/index.js/g})).to.be.length(4);
+        expect(path.recursive.files('/', {maxDepth: 1})).to.be.length(1);
         let files = path.recursive.files('/');
-        expect(files).to.be.length(4);
+        expect(files).to.be.length(5);
         expect(files.indexOf(`${__dirname}/index.js`) != -1).to.be.true;
         expect(files.indexOf(`${__dirname}/folder/index.js`) != -1).to.be.true;
         expect(files.indexOf(`${__dirname}/folder/script.js`) != -1).to.be.true;
@@ -93,6 +94,7 @@ describe('Path', () => {
     it('success: recursive.folders', () => {
         expect(path.recursive.folders('/', {match: /.+test\/folder$/g})).to.be.length(1);
         expect(path.recursive.folders('/', {exclude: /.+test\/folder/g})).to.be.length(1);
+        expect(path.recursive.folders('/', {maxDepth: 1})).to.be.length(1);
         let folders = path.recursive.folders('/');
         expect(folders).to.be.length(2);
         expect(folders.indexOf(`${__dirname}/folder`) != -1).to.be.true;

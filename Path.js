@@ -20,7 +20,7 @@ class Path {
     _get(dir) {
         if (!dir || typeof dir !== 'string') throw new Error('Param must be "string"');
         if (dir.charAt(0) !== '/') throw new Error('Invalid path');
-        if (!dir.startsWith(this.pathRoot)) return  `${this.pathRoot}${dir}`;
+        if (!dir.startsWith(this.pathRoot)) return `${this.pathRoot}${dir}`;
         return dir;
     }
 
@@ -54,17 +54,19 @@ class Path {
     get recursive() {
         const self = this;
         return {
-            files: function recursiveFiles(dir, opts, filelist) {
+            files: function recursiveFiles(dir, opts, filelist, currentDepth = 0) {
+                const {match, exclude, maxDepth = -1} = opts || {};
+                if (maxDepth !== -1 && currentDepth === maxDepth)
+                    return filelist;
                 dir = self.get(dir);
                 filelist = filelist || [];
-                let files = self._getFiles(dir);
+                const files = self._getFiles(dir);
                 for (let i = files.length - 1; i >= 0; i--) {
                     let file = files[i];
                     if (self._isDirectory(`${dir}${file}`))
-                        recursiveFiles(`${dir}${file}`, opts, filelist);
+                        recursiveFiles(`${dir}${file}`, opts, filelist, currentDepth + 1);
                     else {
-                        let flag = true,
-                            {match, exclude} = opts || {};
+                        let flag = true;
                         flag &= (match) ? match.test(`${dir}${file}`) : flag;
                         flag &= (exclude) ? !exclude.test(`${dir}${file}`) : flag;
                         if (flag)
@@ -73,20 +75,22 @@ class Path {
                 }
                 return filelist;
             },
-            folders: function recursiveFolders(dir, opts, folderlist) {
+            folders: function recursiveFolders(dir, opts, folderlist, currentDepth = 0) {
+                const {match, exclude, maxDepth = 0} = opts || {};
+                if (maxDepth > 0 && currentDepth === maxDepth)
+                    return folderlist;
                 dir = self.get(dir);
                 folderlist = folderlist || [];
-                let files = self._getFiles(dir);
+                const files = self._getFiles(dir);
                 for (let i = files.length - 1; i >= 0; i--) {
-                    let file = files[i];
+                    const file = files[i];
                     if (self._isDirectory(`${dir}${file}`)) {
-                        let flag = true,
-                            {match, exclude} = opts || {};
+                        let flag = true;
                         flag &= (match) ? match.test(`${dir}${file}`) : flag;
                         flag &= (exclude) ? !exclude.test(`${dir}${file}`) : flag;
                         if (flag)
                             folderlist.push(`${dir}${file}`);
-                        return recursiveFolders(`${dir}${file}`, opts, folderlist);
+                        return recursiveFolders(`${dir}${file}`, opts, folderlist, currentDepth + 1);
                     }
                 }
                 return folderlist;
@@ -103,14 +107,14 @@ class Path {
                     fs.rmdirSync(self.get(dir));
                 } catch (e) {
                     if (/ENOTEMPTY/g.test(e)) {
-                        let files = self.recursive.files(dir);
+                        const files = self.recursive.files(dir);
                         for (let i = files.length - 1; i >= 0; i--) {
-                            let file = files[i];
+                            const file = files[i];
                             fs.unlinkSync(self.get(file));
                         }
-                        let folders = self.recursive.folders(dir);
+                        const folders = self.recursive.folders(dir);
                         for (let i = folders.length - 1; i >= 0; i--) {
-                            let folder = folders[i];
+                            const folder = folders[i];
                             fs.rmdirSync(self.get(folder));
                         }
                         fs.rmdirSync(self.get(dir));
