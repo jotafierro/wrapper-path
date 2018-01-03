@@ -178,13 +178,17 @@ Todos los cambios importantes son escritos aquí. El Formato esta basado en [Kee
 
 ## [Unreleased]
 
+## [2.1.2] - 2018-01-03
+### Changed
+- Se modifica mensaje de error cuando no se encuentra el archivo/carpeta, con el objetivo de tener conocimiento de a que esta intentando acceder
+
 ## [2.1.1] - 2018-01-03
 ### Changed
 - Corrección de documentación de **remove** y detalles ortográficos
 
 ## [2.1.0] - 2017-11-20
 ### Added
-- Función **recursive** tiene como opción la profundidad máxima (maxDepth) con la que se desea obtener el listado de archivos/carpetas
+- Función **recursive** tiene como opción de profundidad máxima (maxDepth) con la que se desea obtener el listado de archivos/carpetas
 
 ## [2.0.2] - 2017-11-20
 ### Removed
