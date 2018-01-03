@@ -42,7 +42,7 @@ Pensemos en la siguiente estructura de archivos:
 
 ##### constructor
 
-Este metodo es el que se llama cuando se realiza el siguiente codigo:
+Este método es el que se llama cuando se realiza el siguiente código:
 
 ```javascript
 const Path = require('wrapper-path');
@@ -51,7 +51,7 @@ let path = new Path(param);
 
 **Argumentos**:
 
-- param (String) **required**: ruta que queremos tener como base de nuestro proyecto
+- param \(*String*\) **required**: ruta que queremos tener como base de nuestro proyecto
 
 **Retorna**:
 
@@ -59,7 +59,7 @@ let path = new Path(param);
 
 #### get
 
-Este metodo permite obtener la ruta completa a el archivo o directorio que solicitemos por parametro.
+Este método permite obtener la ruta completa a el archivo o directorio que solicitemos por parámetro.
 
 ```javascript
 const Path = require('wrapper-path');
@@ -70,7 +70,7 @@ path.get('/app.js'); // /home/personal/proyecto/app.js
 
 **Argumentos**:
 
-- param (String) **required**: ruta que queremos obtener.
+- param \(*String*\) **required**: ruta que queremos obtener.
 
 **Retorna**:
 
@@ -78,7 +78,7 @@ path.get('/app.js'); // /home/personal/proyecto/app.js
 
 #### require
 
-Este metodo permite hacer el **require** como si fuera nativo pero tomando la ruta base con la cual instanciamos nuestro objeto path.
+Este método permite hacer el **require** como si fuera nativo pero tomando la ruta base con la cual se instancia nuestro objeto path.
 
 ```javascript
 const Path = require('wrapper-path');
@@ -89,7 +89,7 @@ let carpeta1 = path.require('/carpeta1');
 
 **Argumentos**:
 
-- param (String) **required**: ruta que queremos hacer require.
+- param \(*String*\) **required**: ruta que queremos cargar.
 
 **Retorna**:
 
@@ -108,10 +108,11 @@ let folders = path.recursive.folders(param, opts);
 
 **Argumentos**:
 
-- param (String) **required**: ruta de la carpeta que queremos obtener los archivos o carpetas.
-- opts (Object):
+- param \(*String*\) **required**: ruta de la carpeta que queremos obtener los archivos o carpetas.
+- opts \(*Object*\):
     - match \(*RegExp*\): expresión regular para determinar que rutas conservar
     - exclude \(*RegExp*\): expresión regular para determinar que rutas excluir del resultado
+    - maxDepth \(*Number*\): profundidad con la que se desea obtener el listado de archivos
 
 > NOTA: tener en consideracion el uso de la bandera de busqueda **g** en las [RegExp][RegExp], ya que a puede entregar resultados erroneos, mas información [aquí][RexExp-g-wrong-results]
 
@@ -128,14 +129,14 @@ const Path = require('wrapper-path');
 let path = new Path('/home/personal/proyecto');
 path.remove.file(param);
 path.remove.files(param, opts);
-path.recursive.folder(param);
-path.recursive.folders(param, opts);
+path.remove.folder(param);
+path.remove.folders(param, opts);
 ```
 
 **Argumentos**:
 
-- param (String) **required**: ruta de la carpeta o archivo que queremos eliminar.
-- opts (Object):
+- param \(*String*\) **required**: ruta de la carpeta o archivo que queremos eliminar.
+- opts \(*Object*\):
     - match \(*RegExp*\): expresión regular para determinar que rutas conservar
     - exclude \(*RegExp*\): expresión regular para determinar que rutas excluir del resultado
 
@@ -145,10 +146,11 @@ path.recursive.folders(param, opts);
 
 ## Pruebas funcionales (Unit Testing)
 
-Se llebaron a cabo 12 pruebas funcionales las cuales evaluan todos los casos de exito y fallo de cada una de las funcionalidades antes nombradas, para ver el resultado:
+Se llevaron a cabo 12 pruebas funcionales las cuales evalúan todos los casos de éxito y fallo de cada una de las funcionalidades antes nombradas, para ver el resultado:
 
 ```bash
-$ yarn test-spec # yarn test
+$ yarn test-spec
+# yarn test
 ```
 
 ## Pruebas de rendimiento (benchmark)
@@ -176,6 +178,14 @@ Todos los cambios importantes son escritos aquí. El Formato esta basado en [Kee
 
 ## [Unreleased]
 
+## [2.1.1] - 2018-01-03
+### Changed
+- Corrección de documentación de **remove** y detalles ortográficos
+
+## [2.1.0] - 2017-11-20
+### Added
+- Función **recursive** tiene como opción la profundidad máxima (maxDepth) con la que se desea obtener el listado de archivos/carpetas
+
 ## [2.0.2] - 2017-11-20
 ### Removed
 - CHANGELOG.md se elimina el archivo y se incluye al final de README.md
@@ -199,10 +209,10 @@ Todos los cambios importantes son escritos aquí. El Formato esta basado en [Kee
 - Se elimina la funcionalidad para agregar a **global** de node, ya que esto está fuera del objetivo principal del modulo que es simplificar el uso del require del path y tener algunas funciones extras que son comunes en el uso de archivos y carpetas
 
 ### Fixed
-- Se elimina el uso de lodash, para mejorar el rendimiento del moduloå
+- Se elimina el uso de lodash, para mejorar el rendimiento del modulo
 
 ## [1.0.1] - 2016-11-04
 ### Added
-- Obtener ruta completa en segun la base que se instancio el wrapper
+- Obtener ruta completa en segun la base que instancia el wrapper
 - Utilizar **require** del wrapper como el require nativo de node
-- Permite agregar al objeto **global** de node segun un prefijo
+- Permite agregar al objeto **global** de node según un prefijo
