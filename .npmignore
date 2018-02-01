@@ -2,6 +2,7 @@
 test
 benchmark
 .eslintrc.js
+.travis.yml
 
 # Docs
 CHANGELOG.md

@@ -1,4 +1,10 @@
-# wrapper-path
+[![Build Status](https://travis-ci.org/jofierro/wrapper-path.svg?branch=master)](https://travis-ci.org/jofierro/wrapper-path)
+[![Maintainability](https://api.codeclimate.com/v1/badges/c3afc1fac7199fbbc9d5/maintainability)](https://codeclimate.com/github/jofierro/wrapper-path/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/c3afc1fac7199fbbc9d5/test_coverage)](https://codeclimate.com/github/jofierro/wrapper-path/test_coverage)
+[![npm](https://img.shields.io/npm/dm/wrapper-path.svg)](https://www.npmjs.com/package/wrapper-path)
+[![npm version](https://badge.fury.io/js/wrapper-path.svg)](https://badge.fury.io/js/wrapper-path)
+[![dependency status](https://david-dm.org/jofierro/wrapper-path.svg)](https://david-dm.org/jofierro/wrapper-path)
+[![devDependency status](https://david-dm.org/jofierro/wrapper-path/dev-status.svg)](https://david-dm.org/jofierro/wrapper-path)
 
 ## ¿Que hace?
 
@@ -174,49 +180,4 @@ Con el objetivo de que sea optimo el código se realizaron 2 pruebas de rendimie
 
 # Changelog
 
-Todos los cambios importantes son escritos aquí. El Formato esta basado en [Keep a Changelog](http://keepachangelog.com/es-ES/1.0.0/)
-
-## [Unreleased]
-
-## [2.1.2] - 2018-01-03
-### Changed
-- Se modifica mensaje de error cuando no se encuentra el archivo/carpeta, con el objetivo de tener conocimiento de a que esta intentando acceder
-
-## [2.1.1] - 2018-01-03
-### Changed
-- Corrección de documentación de **remove** y detalles ortográficos
-
-## [2.1.0] - 2017-11-20
-### Added
-- Función **recursive** tiene como opción de profundidad máxima (maxDepth) con la que se desea obtener el listado de archivos/carpetas
-
-## [2.0.2] - 2017-11-20
-### Removed
-- CHANGELOG.md se elimina el archivo y se incluye al final de README.md
-
-### Fixed
-- Resultados de la funcionalidad **recursive.files**
-
-## [2.0.1] - 2017-11-17
-### Changed
-- Se mejora el rendimiento de las funcionalidades, utilizando **for** en vez de **forEach**
-
-## [2.0.0] - 2017-09-25
-### Changed
-- Se crea una clase en vez de funcionalidades separadas
-
-### Added
-- Obtener listado de archivos o carpetas de un directorio o poder filtrar las rutas por expresiones regulares
-- Poder eliminar los archivos de una carpeta o la carpeta o poder filtrar que eliminar por expresiones regulares
-
-### Removed
-- Se elimina la funcionalidad para agregar a **global** de node, ya que esto está fuera del objetivo principal del modulo que es simplificar el uso del require del path y tener algunas funciones extras que son comunes en el uso de archivos y carpetas
-
-### Fixed
-- Se elimina el uso de lodash, para mejorar el rendimiento del modulo
-
-## [1.0.1] - 2016-11-04
-### Added
-- Obtener ruta completa en segun la base que instancia el wrapper
-- Utilizar **require** del wrapper como el require nativo de node
-- Permite agregar al objeto **global** de node según un prefijo
+Todos los cambios importantes son escritos [aquí](CHANGELOG.md).

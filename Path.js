@@ -13,6 +13,7 @@ const path = {
 class Path {
 
     constructor(pathRoot) {
+
         if (!pathRoot || typeof pathRoot !== 'string') throw new Error('Param must be "string"');
         this.pathRoot = path.resolve(pathRoot);
     }
@@ -106,6 +107,7 @@ class Path {
                 try {
                     fs.rmdirSync(self.get(dir));
                 } catch (e) {
+                    /* istanbul ignore else */
                     if (/ENOTEMPTY/g.test(e)) {
                         const files = self.recursive.files(dir);
                         for (let i = files.length - 1; i >= 0; i--) {

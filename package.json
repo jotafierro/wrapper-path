@@ -1,10 +1,12 @@
 {
   "name": "wrapper-path",
-  "version": "2.1.2",
+  "version": "2.1.3",
   "description": "wrapper to path module, to simple require, get and others",
   "main": "Path.js",
   "scripts": {
     "test": "mocha test/index.js",
+    "lint": "./node_modules/.bin/eslint **/*.js",
+    "coverage": "nyc mocha test/index.js",
     "test-spec": "mocha --reporter spec test/index.js",
     "benchmark": "node --max_old_space_size=4096"
   },
@@ -25,6 +27,8 @@
   "devDependencies": {
     "benchmark": "^2.1.4",
     "chai": "^4.1.2",
-    "mocha": "^3.5.3"
+    "eslint": "^4.16.0",
+    "mocha": "^3.5.3",
+    "nyc": "^11.4.1"
   }
 }
