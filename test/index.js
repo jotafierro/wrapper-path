@@ -35,6 +35,14 @@ describe('Path', () => {
         done();
     });
 
+    it('catch: contructor', () => {
+        const constructor = () => new Path(1);
+        expect(constructor).to.throw('Param must be "string"');
+    });
+    it('catch: _getFiles', () => {
+        const _getFiles = () => path._getFiles('/asdf');
+        expect(_getFiles).to.throw('Not a directory "/asdf"');
+    });
     it('success: get', () => {
         expect(path.get('/')).to.equal(`${__dirname}/`);
         expect(path.get('/folder')).to.equal(`${folder}/`);
@@ -71,10 +79,10 @@ describe('Path', () => {
     });
     it('success: recursive.files', () => {
         expect(path.recursive.files('/', {match: /.+test\/index.js/g})).to.be.length(1);
-        expect(path.recursive.files('/', {exclude: /.+test\/index.js/g})).to.be.length(4);
+        expect(path.recursive.files('/', {exclude: /.+test\/index.js/g})).to.be.length(3);
         expect(path.recursive.files('/', {maxDepth: 1})).to.be.length(1);
         let files = path.recursive.files('/');
-        expect(files).to.be.length(5);
+        expect(files).to.be.length(4);
         expect(files.indexOf(`${__dirname}/index.js`) != -1).to.be.true;
         expect(files.indexOf(`${__dirname}/folder/index.js`) != -1).to.be.true;
         expect(files.indexOf(`${__dirname}/folder/script.js`) != -1).to.be.true;

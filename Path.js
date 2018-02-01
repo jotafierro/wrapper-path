@@ -13,13 +13,14 @@ const path = {
 class Path {
 
     constructor(pathRoot) {
+
         if (!pathRoot || typeof pathRoot !== 'string') throw new Error('Param must be "string"');
         this.pathRoot = path.resolve(pathRoot);
     }
 
     _get(dir) {
         if (!dir || typeof dir !== 'string') throw new Error('Param must be "string"');
-        if (dir.charAt(0) !== '/') throw new Error('Invalid path');
+        if (dir.charAt(0) !== '/') throw new Error(`Invalid path "${dir}"`);
         if (!dir.startsWith(this.pathRoot)) return `${this.pathRoot}${dir}`;
         return dir;
     }
@@ -28,7 +29,7 @@ class Path {
         try {
             return fs.statSync(dir).isDirectory();
         } catch (e) {
-            throw new Error('No such file or directory');
+            throw new Error(`No such file or directory "${dir}"`);
         }
     }
 
@@ -36,7 +37,7 @@ class Path {
         try {
             return fs.readdirSync(dir);
         } catch (e) {
-            throw new Error('Not a directory');
+            throw new Error(`Not a directory "${dir}"`);
         }
     }
 
@@ -106,6 +107,7 @@ class Path {
                 try {
                     fs.rmdirSync(self.get(dir));
                 } catch (e) {
+                    /* istanbul ignore else */
                     if (/ENOTEMPTY/g.test(e)) {
                         const files = self.recursive.files(dir);
                         for (let i = files.length - 1; i >= 0; i--) {
