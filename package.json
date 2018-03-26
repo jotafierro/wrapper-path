@@ -5,8 +5,8 @@
   "main": "Path.js",
   "scripts": {
     "test": "mocha test/index.js",
-    "lint": "./node_modules/.bin/eslint **/*.js",
-    "coverage": "nyc mocha test/index.js",
+    "eslint": "./node_modules/.bin/eslint **/*.js",
+    "nyc": "nyc mocha test/index.js",
     "test-spec": "mocha --reporter spec test/index.js",
     "benchmark": "node --max_old_space_size=4096"
   },
